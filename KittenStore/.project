@@ -3,6 +3,7 @@
 	<name>KittenStore</name>
 	<comment></comment>
 	<projects>
+		<project>KittenStore-InventoryManagement-EJBClient</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

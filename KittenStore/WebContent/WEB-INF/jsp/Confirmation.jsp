@@ -18,9 +18,11 @@
 
 <table style="width:100%; border: 1px solid black">
 	<tr><th>Order Confirmation</th></tr>
+	<tr><td>Confirmation Code: <b></b><c:out value="${confirmationCode}"/></b>.</td></tr>
 	<tr><td> Thank You for your order <b></b><c:out value="${shipping.getName()}"/></b>.</td></tr>
 	<c:set var = "payment" scope = "session" value = "${payment}"/>
 	<c:set var = "shipping" scope = "session" value = "${shipping}"/>
+	<c:set var = "confirmationCode" scope = "session" value = "${confirmationCode}"/>
 	<tr><td>Please Confirm that the payment info for <c:out value = "${payment.getCardName()}"/> is correct:</td></tr>
 	<tr><td>Credit Card Number: <c:out value = "${payment.getCcNumber()}"/></td></tr>
 	<tr><td>Expiration Date: <c:out value = "${payment.getExpiration()}"/></td></tr>

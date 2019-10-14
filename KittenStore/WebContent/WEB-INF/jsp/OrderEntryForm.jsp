@@ -10,7 +10,8 @@
 <title>Payment</title>
 </head>
 <body>
-
+<c:out value="${validQuantity}"/>
+<c:set var = "validQuantity" scope = "session" value = "${validQuantity}"/>
 <jsp:include page="Header.jsp" />
 <form:form modelAttribute="order" method="post" action="purchase/submitItems">
 
