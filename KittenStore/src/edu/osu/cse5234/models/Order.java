@@ -3,6 +3,7 @@ package edu.osu.cse5234.models;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Session Bean implementation class Order
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 @LocalBean
 public class Order {
 	
-	private ArrayList<Item> items;
+	private List<Item> items;
 
     /**
      * Default constructor. 
@@ -20,11 +21,11 @@ public class Order {
         this.items = new ArrayList<Item>();
     }
 
-	public ArrayList<Item> getItems() {
+	public List<Item> getItems() {
 		return items;
 	}
 
-	public void setItems(ArrayList<Item> items) {
+	public void setItems(List<Item> items) {
 		this.items = items;
 	}
 

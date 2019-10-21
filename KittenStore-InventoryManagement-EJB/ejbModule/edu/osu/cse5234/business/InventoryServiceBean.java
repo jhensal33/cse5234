@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  * Session Bean implementation class InventoryServiceBean
@@ -23,51 +25,44 @@ public class InventoryServiceBean implements InventoryService {
     public InventoryServiceBean() {
         // TODO Auto-generated constructor stub
     }
+    
+	@PersistenceContext
+    EntityManager entityManager;
+	
+	private final String MY_QUERY = "Select i from Item i";
 
 	@Override
 	public Inventory getAvailableInventory() {
 		
 		Inventory inventory = new Inventory();
-		
-		Item cat1 = new Item();
-		Item cat2 = new Item();
-		Item cat3 = new Item();
-		Item cat4 = new Item();
-		Item cat5 = new Item();
-		
-		cat1.setName("ragdoll");
-		cat2.setName("munchkin");
-		cat3.setName("scottish fold");
-		cat4.setName("toyger");
-		cat5.setName("bengal");
-		
-		cat1.setPrice("12");
-		cat2.setPrice("200");
-		cat3.setPrice("35");
-		cat4.setPrice("78");
-		cat5.setPrice("5000");
-		
-		cat1.setQuantity("11");
-		cat2.setQuantity("1");
-		cat3.setQuantity("111");
-		cat4.setQuantity("11");
-		cat5.setQuantity("1");
-		
-		ArrayList<Item> lst = new ArrayList<>();
-		lst.add(cat1);
-		lst.add(cat2);
-		lst.add(cat3);
-		lst.add(cat4);
-		lst.add(cat5);
-		
-		inventory.setItems(lst);
+		inventory.setItems(entityManager.createQuery(MY_QUERY, Item.class).getResultList());
 		
 		return inventory;
 	}
 
 	@Override
 	public boolean validateQuantity(List<Item> items) {
-		// TODO Auto-generated method stub
+		
+		List<Item> inv = getAvailableInventory().getItems();
+		
+		int itemId = 0;
+		for(Item item : items) {
+	
+			itemId = item.getId();
+			
+			for(int i=0; i<inv.size(); i++) {				
+				if(inv.get(i).getId() == itemId) {
+					if(inv.get(i).getAvailableQuantity() < Integer.parseInt(item.getQuantity())) {
+						return false;
+					}
+					else {
+						break;
+					}
+				}
+			}			
+		}
+		
+		
 		return true;
 	}
 
@@ -75,6 +70,14 @@ public class InventoryServiceBean implements InventoryService {
 	public boolean updateInventory(List<Item> items) {
 		// TODO Auto-generated method stub
 		return true;
+	}
+	
+    public EntityManager getEntityManager() {
+		return entityManager;
+	}
+
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
 	}
 
 }
