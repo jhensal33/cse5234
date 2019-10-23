@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import java.util.ArrayList;
@@ -34,7 +36,7 @@ public class Order {
 	private String emailAddress;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@Column(name="CUSTOMER_ORDER_ID_FK")
+	@JoinColumn(name="CUSTOMER_ORDER_ID_FK")
 	private List<LineItem> lineItems;
 	//private List<Item> items; Item represents inventory now
 
