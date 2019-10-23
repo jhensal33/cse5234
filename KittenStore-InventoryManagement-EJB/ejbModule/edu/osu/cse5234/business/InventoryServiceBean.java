@@ -52,7 +52,7 @@ public class InventoryServiceBean implements InventoryService {
 			
 			for(int i=0; i<inv.size(); i++) {				
 				if(inv.get(i).getId() == itemId) {
-					if(inv.get(i).getAvailableQuantity() < Integer.parseInt(item.getQuantity())) {
+					if(inv.get(i).getAvailableQuantity() < item.getAvailableQuantity()) {
 						return false;
 					}
 					else {

@@ -12,21 +12,26 @@ import java.util.List;
 @LocalBean
 public class Order {
 	
-	private List<Item> items;
+	
+	private int id;
+	private String customerName;
+	private String emailAddress;
+	private List<LineItem> lineItems;
+	//private List<Item> items; Item represents inventory now
 
     /**
      * Default constructor. 
      */
     public Order() {
-        this.items = new ArrayList<Item>();
+        this.lineItems = new ArrayList<LineItem>();
     }
 
-	public List<Item> getItems() {
-		return items;
+	public List<LineItem> getLineItems() {
+		return lineItems;
 	}
 
-	public void setItems(List<Item> items) {
-		this.items = items;
+	public void setLineItems(List<LineItem> lineItems) {
+		this.lineItems = lineItems;
 	}
 
 }
