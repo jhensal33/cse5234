@@ -2,12 +2,20 @@ package edu.osu.cse5234.models;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Session Bean implementation class PaymentInfo
  */
 @Stateless
 @LocalBean
+@Entity
+@Table(name="PAYMENT_INFO")
 public class PaymentInfo {	
 	
     /**
@@ -16,10 +24,21 @@ public class PaymentInfo {
     public PaymentInfo() {
     }
     
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="ID")
     private int id;
+	
+	@Column(name="CARD_NUM")
 	private String ccNumber;
+	
+	@Column(name="EXP_DATE")
 	private String expiration;
+	
+	@Column(name="CVV")
 	private String cvvCode;
+	
+	@Column(name="HOLDER_NAME")
 	private String cardName;
 
 	public String getCcNumber() {
