@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import java.util.ArrayList;
@@ -38,7 +39,14 @@ public class Order {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="CUSTOMER_ORDER_ID_FK")
 	private List<LineItem> lineItems;
-	//private List<Item> items; Item represents inventory now
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="SHIPPING_INFO_ID_FK")
+	private ShippingInfo shipping;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="PAYMENT_INFO_ID_FK")
+	private PaymentInfo payment;
 
     /**
      * Default constructor. 
