@@ -15,7 +15,8 @@ public class PaymentInfo {
      */
     public PaymentInfo() {
     }
-
+    
+    private int id;
 	private String ccNumber;
 	private String expiration;
 	private String cvvCode;

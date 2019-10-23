@@ -28,7 +28,7 @@ public class Purchase {
 		Order ord = new Order();
 		
 		Inventory inventory = ServiceLocator.getInventoryService().getAvailableInventory();
-		ord.setItems(inventory.getItems());
+		ord.setLineItems(inventory.getItems());
 		
 		request.setAttribute("order", ord);
 		request.getSession().setAttribute("validQuantity", "");
