@@ -43,6 +43,7 @@ public class InventoryServiceBean implements InventoryService {
 	@Override
 	public boolean validateQuantity(List<Item> items) {
 		
+		/*
 		List<Item> inv = getAvailableInventory().getItems();
 		
 		int itemId = 0;
@@ -61,7 +62,7 @@ public class InventoryServiceBean implements InventoryService {
 				}
 			}			
 		}
-		
+		*/
 		
 		return true;
 	}

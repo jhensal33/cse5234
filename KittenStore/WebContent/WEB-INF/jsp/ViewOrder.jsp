@@ -17,9 +17,9 @@
 		<th>Quantity</th>
 		
 	</tr>
-<c:forEach var="item" items="${order.getItems()}">
+<c:forEach var="item" items="${order.getLineItems()}">
 	<tr>
-		<td><c:out value="Name: ${item.getName()}"/></td>
+		<td><c:out value="Name: ${item.getItemName()}"/></td>
 		<td><c:out value="Price: ${item.getPrice()}"/></td>
 		<td><c:out value="Quantity: ${item.getQuantity()}"/></td>
 	</tr>
