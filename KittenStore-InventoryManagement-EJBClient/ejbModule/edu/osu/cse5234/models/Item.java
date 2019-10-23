@@ -26,8 +26,11 @@ public class Item  implements java.io.Serializable{
     }
 
 	
+    @Transient
 	private static final long serialVersionUID = 866179739582712365L;
+	@Transient
     private String price;
+	@Transient
     private String quantity;
 	
 	@Id
