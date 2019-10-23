@@ -10,10 +10,10 @@
 </head>
 <body>
 <jsp:include page="Header.jsp" />
-<c:forEach var="item" items="${order.getItems()}">
-    <c:out value="Name: ${item.getName()}\n"/> 
-    <c:out value="Price: ${item.getPrice()}\n"/> 
-    <c:out value="Quantity: ${item.getQuantity()}\n"/> 
+<c:forEach var="lineItem" items="${order.getLineItems()}">
+    <c:out value="Name: ${lineItem.getName()}\n"/> 
+    <c:out value="Price: ${lineItem.getPrice()}\n"/> 
+    <c:out value="Quantity: ${lineItem.getQuantity()}\n"/> 
 </c:forEach>
 
 <table style="width:100%; border: 1px solid black">
