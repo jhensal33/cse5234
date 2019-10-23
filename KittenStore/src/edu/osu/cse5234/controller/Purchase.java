@@ -17,6 +17,7 @@ import edu.osu.cse5234.models.Order;
 import edu.osu.cse5234.models.PaymentInfo;
 import edu.osu.cse5234.models.ShippingInfo;
 import edu.osu.cse5234.util.ServiceLocator;
+import edu.osu.cse5234.util.Utility;
 
 @Controller
 @RequestMapping("/purchase")
@@ -26,9 +27,10 @@ public class Purchase {
 	public String viewOrderEntryForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		Order ord = new Order();
+		Utility utility = new Utility();
 		
 		Inventory inventory = ServiceLocator.getInventoryService().getAvailableInventory();
-		ord.setLineItems(inventory.getItems());
+		ord.setLineItems(utility.itemListToLineItemList(inventory.getItems()));
 		
 		request.setAttribute("order", ord);
 		request.getSession().setAttribute("validQuantity", "");
