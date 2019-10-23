@@ -9,7 +9,8 @@ import javax.ejb.Stateless;
 @Stateless
 @LocalBean
 public class ShippingInfo {
-
+	
+	private int id;
 	private String name;
 	private String addressLine1;
 	private String addressLine2;
