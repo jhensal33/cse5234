@@ -2,6 +2,8 @@ package edu.osu.cse5234.business;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import edu.osu.cse5234.business.view.Inventory;
 import edu.osu.cse5234.models.Order;
@@ -21,9 +23,14 @@ public class OrderProcessingServiceBean {
         // TODO Auto-generated constructor stub
     }
     
+    @PersistenceContext
+    EntityManager entityManager;
+    
     public String processOrder(Order order) {
     	Inventory inventory = ServiceLocator.getInventoryService().getAvailableInventory();
     	if(ServiceLocator.getInventoryService().validateQuantity(inventory.getItems())) {
+    		entityManager.persist(order);
+    		entityManager.flush();
     		ServiceLocator.getInventoryService().updateInventory(inventory.getItems());
     	}
     	return "XXX-ORDER-NUMBER-XXX";
