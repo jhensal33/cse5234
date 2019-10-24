@@ -12,8 +12,6 @@ import javax.persistence.Table;
 /**
  * Session Bean implementation class ShippingInfo
  */
-@Stateless
-@LocalBean
 @Entity
 @Table(name="SHIPPING_INFO")
 public class ShippingInfo {

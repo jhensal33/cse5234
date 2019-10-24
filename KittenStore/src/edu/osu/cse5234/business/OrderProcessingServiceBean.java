@@ -29,6 +29,7 @@ public class OrderProcessingServiceBean {
     public String processOrder(Order order) {
     	Inventory inventory = ServiceLocator.getInventoryService().getAvailableInventory();
     	if(ServiceLocator.getInventoryService().validateQuantity(inventory.getItems())) {
+    		System.out.println("teacher taught me!" + order);
     		entityManager.persist(order);
     		entityManager.flush();
     		ServiceLocator.getInventoryService().updateInventory(inventory.getItems());

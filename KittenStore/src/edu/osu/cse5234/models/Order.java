@@ -19,8 +19,6 @@ import java.util.List;
 /**
  * Session Bean implementation class Order
  */
-@Stateless
-@LocalBean
 @Entity
 @Table(name="CUSTOMER_ORDER")
 public class Order {

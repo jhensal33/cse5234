@@ -13,8 +13,8 @@ import javax.persistence.Transient;
 /**
  * Session Bean implementation class Item
  */
-@Stateless
-@LocalBean
+//@Stateless
+//@LocalBean
 @Entity
 @Table(name="ITEM")
 public class Item  implements java.io.Serializable{

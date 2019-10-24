@@ -12,8 +12,6 @@ import javax.persistence.Table;
 /**
  * Session Bean implementation class PaymentInfo
  */
-@Stateless
-@LocalBean
 @Entity
 @Table(name="PAYMENT_INFO")
 public class PaymentInfo {	
