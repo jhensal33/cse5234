@@ -38,10 +38,50 @@ public class Order {
 	@JoinColumn(name="CUSTOMER_ORDER_ID_FK")
 	private List<LineItem> lineItems;
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+
+	public ShippingInfo getShipping() {
+		return shipping;
+	}
+
+	public void setShipping(ShippingInfo shipping) {
+		this.shipping = shipping;
+	}
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="SHIPPING_INFO_ID_FK")
 	private ShippingInfo shipping;
 	
+	public PaymentInfo getPayment() {
+		return payment;
+	}
+
+	public void setPayment(PaymentInfo payment) {
+		this.payment = payment;
+	}
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="PAYMENT_INFO_ID_FK")
 	private PaymentInfo payment;

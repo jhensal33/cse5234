@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="CUSTOMER_ORDER_LINE_ITEM")
@@ -24,7 +25,7 @@ public class LineItem {
 	@Column(name="ITEM_NAME")	
 	private String itemName;
 	
-	
+	@Transient
 	private double price;
 	
 	@Column(name="QUANTITY")	

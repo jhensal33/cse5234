@@ -11,7 +11,7 @@
 <body>
 <jsp:include page="Header.jsp" />
 <c:forEach var="lineItem" items="${order.getLineItems()}">
-    <c:out value="Name: ${lineItem.getName()}\n"/> 
+    <c:out value="Name: ${lineItem.getItemName()}\n"/> 
     <c:out value="Price: ${lineItem.getPrice()}\n"/> 
     <c:out value="Quantity: ${lineItem.getQuantity()}\n"/> 
 </c:forEach>
