@@ -35,4 +35,27 @@ public class Utility {
 		return lineList;
 	}
 	
+	static public Item lineItemToItem(LineItem line) {
+		Item item = new Item();
+		
+		item.setId(line.getId());
+		item.setName(line.getItemName());
+		item.setItemNumber(line.getItemNumber());
+		item.setPrice("" + line.getPrice());
+		item.setAvailableQuantity(line.getQuantity());
+		
+		return item;
+	}
+	
+	
+	static public List<Item> lineItemListToItemList(List<LineItem> lineItemList) {
+		List<Item> itemList = new ArrayList<>();
+		
+		for(LineItem li : lineItemList) {
+			itemList.add(lineItemToItem(li));
+		}
+		
+		return itemList;
+	}
+	
 }

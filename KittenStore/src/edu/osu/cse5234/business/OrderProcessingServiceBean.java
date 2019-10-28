@@ -4,10 +4,10 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import edu.osu.cse5234.business.view.Inventory;
 import edu.osu.cse5234.models.Order;
 import edu.osu.cse5234.util.ServiceLocator;
+import edu.osu.cse5234.util.Utility;
 
 /**
  * Session Bean implementation class OrderProcessingServiceBean
@@ -28,7 +28,7 @@ public class OrderProcessingServiceBean {
     
     public String processOrder(Order order) {
     	Inventory inventory = ServiceLocator.getInventoryService().getAvailableInventory();
-    	if(ServiceLocator.getInventoryService().validateQuantity(inventory.getItems())) {
+    	if(ServiceLocator.getInventoryService().validateQuantity(Utility.lineItemListToItemList(order.getLineItems()))) {
     		System.out.println("Order being processed");
     		entityManager.persist(order);
     		entityManager.flush();

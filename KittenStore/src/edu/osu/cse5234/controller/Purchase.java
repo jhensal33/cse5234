@@ -82,7 +82,6 @@ public class Purchase {
 	public String confirmOrder(HttpServletRequest request) throws Exception {
 		
 		Order order = (Order) request.getSession().getAttribute("order");
-		//order.setShipping( (ShippingInfo) request.getSession().getAttribute("shipping"));
 		
 		PaymentInfo pi = (PaymentInfo) request.getSession().getAttribute("payment");
 		ShippingInfo si = ((ShippingInfo) request.getSession().getAttribute("shipping"));
