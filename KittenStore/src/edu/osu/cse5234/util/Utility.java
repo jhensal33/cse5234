@@ -35,7 +35,7 @@ public class Utility {
 		return lineList;
 	}
 	
-	static public Item lineItemToItem(LineItem line) {
+	public Item lineItemToItem(LineItem line) {
 		Item item = new Item();
 		
 		item.setId(line.getId());
@@ -48,7 +48,7 @@ public class Utility {
 	}
 	
 	
-	static public List<Item> lineItemListToItemList(List<LineItem> lineItemList) {
+	public List<Item> lineItemListToItemList(List<LineItem> lineItemList) {
 		List<Item> itemList = new ArrayList<>();
 		
 		for(LineItem li : lineItemList) {

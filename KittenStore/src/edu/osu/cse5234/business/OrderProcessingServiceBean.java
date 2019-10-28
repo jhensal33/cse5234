@@ -23,12 +23,14 @@ public class OrderProcessingServiceBean {
         // TODO Auto-generated constructor stub
     }
     
+    
     @PersistenceContext
     EntityManager entityManager;
     
     public String processOrder(Order order) {
     	Inventory inventory = ServiceLocator.getInventoryService().getAvailableInventory();
-    	if(ServiceLocator.getInventoryService().validateQuantity(Utility.lineItemListToItemList(order.getLineItems()))) {
+    	Utility util = new Utility();
+    	if(ServiceLocator.getInventoryService().validateQuantity(util.lineItemListToItemList(order.getLineItems()))) {
     		System.out.println("Order being processed");
     		entityManager.persist(order);
     		entityManager.flush();
