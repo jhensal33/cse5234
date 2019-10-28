@@ -18,6 +18,7 @@
     	<tr><td>AddressLine 2: </td><td><form:input path="addressLine2" /></td></tr>
     	<tr><td>City: </td><td><form:input path="city" /></td></tr>
     	<tr><td>State: </td><td><form:input path="state" /></td></tr>
+ 	    <tr><td>Country: </td><td><form:input path="country" /></td></tr>
     	<tr><td>Zip: </td><td><form:input path="zip" /></td></tr>
     	<tr>
 		<td colspan="2"><input type="submit" value="Payment"></td>

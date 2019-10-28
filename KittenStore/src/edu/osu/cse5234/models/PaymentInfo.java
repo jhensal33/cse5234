@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * Session Bean implementation class PaymentInfo
@@ -38,10 +39,22 @@ public class PaymentInfo {
 	
 	@Column(name="HOLDER_NAME")
 	private String cardName;
+	
+	@Transient
+	private String emailAddress;
+	
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+	
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
 
 	public String getCcNumber() {
 		return ccNumber;
 	}
+	
 	public void setCcNumber(String ccNumber) {
 		this.ccNumber = ccNumber;
 	}

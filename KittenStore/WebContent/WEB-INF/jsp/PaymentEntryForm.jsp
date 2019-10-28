@@ -17,6 +17,7 @@
     	<tr><td>CC Number: </td><td><form:input path="ccNumber" /></td></tr>
     	<tr><td>Expiration: </td><td><form:input path="expiration" /></td></tr>
     	<tr><td>CVV Code: </td><td><form:input path="cvvCode" /></td></tr>
+	    <tr><td>Email Address </td><td><form:input path="emailAddress" /></td></tr>
     	<tr>
 		<td colspan="2"><input type="submit" value="Payment"></td>
 	  	</tr>

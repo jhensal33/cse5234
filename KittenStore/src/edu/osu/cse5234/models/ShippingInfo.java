@@ -16,6 +16,9 @@ import javax.persistence.Table;
 @Table(name="SHIPPING_INFO")
 public class ShippingInfo {
 	
+	public ShippingInfo() {
+    }
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="ID")
@@ -38,9 +41,17 @@ public class ShippingInfo {
 	
 	@Column(name="POSTAL_CODE")
 	private String zip;
+	
+	@Column(name="COUNTRY")
+	private String country;
+	
+	public String getCountry() {
+		return country;
+	}
 
-	public ShippingInfo() {
-    }
+	public void setCountry(String country) {
+		this.country = country;
+	}
 
 	public String getName() {
 		return name;
