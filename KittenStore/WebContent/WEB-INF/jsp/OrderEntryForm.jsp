@@ -20,12 +20,14 @@
     		<th>Item Name</th>
     		<th>Price</th>
     		<th>Quantity</th>
+    		<th>ID</th>
     	</tr>
 	<c:forEach items="${order.lineItems}" var="item" varStatus="loop">
 		<tr>
 			<td><c:out value="${item.itemName}" /></td>
 			<td>$<c:out value="${item.price}"   /></td>
-			<td><form:input path="lineItems[${loop.index}].quantity" /></td> 			
+			<td><form:input path="lineItems[${loop.index}].quantity" /></td>
+			<td><form:input path="lineItems[${loop.index}].id" readonly="true"/></td>		
 		</tr>
 	</c:forEach>
 
