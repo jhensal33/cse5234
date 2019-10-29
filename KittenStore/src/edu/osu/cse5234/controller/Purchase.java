@@ -40,9 +40,10 @@ public class Purchase {
 	@RequestMapping(path = "/submitItems", method = RequestMethod.POST)
 	public String submitItems(@ModelAttribute("order") Order order, HttpServletRequest request) throws Exception {
 		request.getSession().setAttribute("order", order);
+		
 		if(ServiceLocator.getOrderProcessingService().validateItemAvailability(order)) {
 			return "redirect:/purchase/paymentEntry";
-		} else {
+		} else {  
 			request.getSession().setAttribute("validQuantity", "Please resubmit item quantities");
 			return "OrderEntryForm";
 		}

@@ -28,10 +28,6 @@ public class Item  implements java.io.Serializable{
 	
     @Transient
 	private static final long serialVersionUID = 866179739582712365L;
-	@Transient
-    private String price;
-	@Transient
-    private String quantity;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -104,22 +100,6 @@ public class Item  implements java.io.Serializable{
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getPrice() {
-		return price;
-	}
-
-	public void setPrice(String price) {
-		this.price = price;
-	}
-
-	public String getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(String quantity) {
-		this.quantity = quantity;
 	}
 
 }

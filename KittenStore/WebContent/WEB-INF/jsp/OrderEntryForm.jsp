@@ -25,8 +25,7 @@
 		<tr>
 			<td><c:out value="${item.itemName}" /></td>
 			<td>$<c:out value="${item.price}"   /></td>
-			<td><form:input path="items[${loop.index}].quantity" /></td>
-			
+			<td><form:input path="lineItems[${loop.index}].quantity" /></td> 			
 		</tr>
 	</c:forEach>
 

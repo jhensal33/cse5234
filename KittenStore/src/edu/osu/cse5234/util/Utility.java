@@ -41,7 +41,7 @@ public class Utility {
 		item.setId(line.getId());
 		item.setName(line.getItemName());
 		item.setItemNumber(line.getItemNumber());
-		item.setPrice("" + line.getPrice());
+		item.setUnitPrice(line.getPrice());
 		item.setAvailableQuantity(line.getQuantity());
 		
 		return item;
