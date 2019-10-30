@@ -45,7 +45,7 @@ public class Purchase {
 			return "redirect:/purchase/paymentEntry";
 		} else {  
 			request.getSession().setAttribute("validQuantity", "Please resubmit item quantities");
-			return "OrderEntryForm";
+			return "redirect:/purchase";
 		}
 		
 	}
