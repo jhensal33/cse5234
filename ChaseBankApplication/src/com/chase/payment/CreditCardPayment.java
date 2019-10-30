@@ -5,21 +5,21 @@ import java.io.Serializable;
 public class CreditCardPayment implements Serializable {
 
     private int id;
-	
+
 	private String ccNumber;
-	
+
 	private String expiration;
-	
+
 	private String cvvCode;
-	
+
 	private String cardName;
-	
+
 	private String emailAddress;
-	
+
 	public String getEmailAddress() {
 		return emailAddress;
 	}
-	
+
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
 	}
@@ -27,7 +27,7 @@ public class CreditCardPayment implements Serializable {
 	public String getCcNumber() {
 		return ccNumber;
 	}
-	
+
 	public void setCcNumber(String ccNumber) {
 		this.ccNumber = ccNumber;
 	}
@@ -50,5 +50,5 @@ public class CreditCardPayment implements Serializable {
 		this.cardName = cardName;
 	}
 
-	
+
 }
