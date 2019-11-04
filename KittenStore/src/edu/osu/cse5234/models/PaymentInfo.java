@@ -43,6 +43,17 @@ public class PaymentInfo {
 	@Transient
 	private String emailAddress;
 	
+	@Transient
+	private String confirmationNumber;
+	
+	public String getConfirmationNumber() {
+		return confirmationNumber;
+	}
+
+	public void setConfirmationNumber(String confirmationNumber) {
+		this.confirmationNumber = confirmationNumber;
+	}
+
 	public String getEmailAddress() {
 		return emailAddress;
 	}
