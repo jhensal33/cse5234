@@ -36,7 +36,8 @@ public class OrderProcessingServiceBean {
     
     @WebServiceRef(wsdlLocation = 
  	       "http://localhost:9080/ChaseBankApplication/PaymentProcessorService?wsdl")
- 	    private PaymentProcessor service;
+ 	    private PaymentProcessorService service;
+    
     public String processOrder(Order order) {
     	Inventory inventory = ServiceLocator.getInventoryService().getAvailableInventory();
     	
