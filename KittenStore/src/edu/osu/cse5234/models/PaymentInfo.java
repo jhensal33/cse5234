@@ -43,7 +43,7 @@ public class PaymentInfo {
 	@Transient
 	private String emailAddress;
 	
-	@Transient
+	@Column(name="CONF")
 	private String confirmationNumber;
 	
 	public String getConfirmationNumber() {
