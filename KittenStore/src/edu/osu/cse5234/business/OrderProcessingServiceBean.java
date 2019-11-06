@@ -2,11 +2,14 @@ package edu.osu.cse5234.business;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.json.Json;
+import javax.json.JsonObject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.xml.ws.WebServiceRef;
 
 import com.chase.payment.*;
+import com.ups.shipping.client.ShippingInitiationClient;
 
 import edu.osu.cse5234.business.view.Inventory;
 import edu.osu.cse5234.models.Order;
@@ -21,7 +24,9 @@ import javax.jws.WebService;
 @Stateless
 @LocalBean
 public class OrderProcessingServiceBean {
-
+	
+	private static String shippingResourceURI = "http://localhost:9080/UPS/jaxrs";
+	
     /**
      * Default constructor. 
      */
@@ -47,7 +52,7 @@ public class OrderProcessingServiceBean {
     		entityManager.flush();
     		ServiceLocator.getInventoryService().updateInventory(inventory.getItems());
     	}
-
+    	
     	CreditCardPayment creditCardPayment = new CreditCardPayment();
     	PaymentInfo paymentInfo = order.getPayment();
     	creditCardPayment.setCardName(paymentInfo.getCardName());
@@ -60,8 +65,21 @@ public class OrderProcessingServiceBean {
     	if(Integer.parseInt(result) < 0) {
     		return "Invalid Payment Info";
     	}
+    	   	
+    	ShippingInitiationClient SIC = new ShippingInitiationClient(shippingResourceURI);
     	
-    	paymentInfo.setConfirmationNumber(result);
+    	JsonObject j = Json.createObjectBuilder().add("Organization", "KittenStore")
+    			.add("OrderRefId", order.getId())
+    			.add("Zip", order.getShipping().getZip())
+    			.add("ItemsNumber", order.getLineItems().size())
+    			.build();
+
+    	JsonObject responseJson = SIC.invokeInitiateShipping(j);
+    	System.out.println("UPS accepted request? " + responseJson.getBoolean("Accepted"));
+    	System.out.println("Shipping Reference Number: " +  responseJson.getInt("ShippingReferenceNumber"));
+    	
+    	
+    	
     	return result;
     } 
     
