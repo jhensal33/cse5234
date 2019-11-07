@@ -12,7 +12,7 @@ public class PaymentProcessorDelegate{
         return _paymentProcessor.ping();
     }
 
-    public String processPayment (CreditCardPayment payment) {
+    public String processPayment(CreditCardPayment payment) {
         return _paymentProcessor.processPayment(payment);
     }
 

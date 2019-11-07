@@ -8,7 +8,7 @@ public class PaymentProcessor {
 
 	public String processPayment(CreditCardPayment payment) {
 
-		String confNumber = "123";
+		String confNumber = ((int) Math.random()*1000) + "";
 
 		return confNumber;
 	}

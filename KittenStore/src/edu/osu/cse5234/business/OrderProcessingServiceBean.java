@@ -44,14 +44,6 @@ public class OrderProcessingServiceBean {
  	    private PaymentProcessorService service;
     
     public String processOrder(Order order) {
-    	Inventory inventory = ServiceLocator.getInventoryService().getAvailableInventory();
-    	
-    	if(ServiceLocator.getInventoryService().validateQuantity(util.lineItemListToItemList(order.getLineItems()))) {
-    		System.out.println("Order being processed");
-    		entityManager.persist(order);
-    		entityManager.flush();
-    		ServiceLocator.getInventoryService().updateInventory(inventory.getItems());
-    	}
     	
     	CreditCardPayment creditCardPayment = new CreditCardPayment();
     	PaymentInfo paymentInfo = order.getPayment();
@@ -65,7 +57,9 @@ public class OrderProcessingServiceBean {
     	if(Integer.parseInt(result) < 0) {
     		return "Invalid Payment Info";
     	}
-    	   	
+    	
+    	order.getPayment().setConfirmationNumber(result);
+    	
     	ShippingInitiationClient SIC = new ShippingInitiationClient(shippingResourceURI);
     	
     	JsonObject j = Json.createObjectBuilder().add("Organization", "KittenStore")
@@ -78,8 +72,15 @@ public class OrderProcessingServiceBean {
     	System.out.println("UPS accepted request? " + responseJson.getBoolean("Accepted"));
     	System.out.println("Shipping Reference Number: " +  responseJson.getInt("ShippingReferenceNumber"));
     	
+    	Inventory inventory = ServiceLocator.getInventoryService().getAvailableInventory();
     	
-    	
+    	if(ServiceLocator.getInventoryService().validateQuantity(util.lineItemListToItemList(order.getLineItems()))) {
+    		System.out.println("Order being processed");
+    		entityManager.persist(order);
+    		entityManager.flush();
+    		ServiceLocator.getInventoryService().updateInventory(inventory.getItems());
+    	}
+ 
     	return result;
     } 
     
