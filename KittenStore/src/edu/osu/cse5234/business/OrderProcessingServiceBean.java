@@ -1,7 +1,16 @@
 package edu.osu.cse5234.business;
 
+import java.util.Date;
+import java.util.Queue;
+
+import javax.annotation.Resource;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.jms.ConnectionFactory;
+import javax.jms.Destination;
+import javax.jms.JMSConnectionFactory;
+import javax.jms.JMSContext;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.persistence.EntityManager;
@@ -21,6 +30,7 @@ import javax.jws.WebService;
 /**
  * Session Bean implementation class OrderProcessingServiceBean
  */
+@Resource(name="jms/emailQCF", lookup="jms/emailQCF", type=ConnectionFactory.class) 
 @Stateless
 @LocalBean
 public class OrderProcessingServiceBean {
@@ -34,6 +44,13 @@ public class OrderProcessingServiceBean {
         // TODO Auto-generated constructor stub
     }
     
+    @Inject
+    @JMSConnectionFactory("java:comp/env/jms/emailQCF")
+    private JMSContext jmsContext;
+
+    @Resource(lookup="jms/emailQ")
+    private Queue queue;
+    
     Utility util = new Utility();
     
     @PersistenceContext
@@ -43,6 +60,18 @@ public class OrderProcessingServiceBean {
  	       "http://localhost:9080/ChaseBankApplication/PaymentProcessorService?wsdl")
  	    private PaymentProcessorService service;
     
+    private void notifyUser(String email) {
+
+    	String message = email + ":" +
+    	       "Your order was successfully submitted. " + 
+    	     	"You will hear from us when items are shipped. " + 
+    	      	new Date();
+
+    	System.out.println("Sending message: " + message);
+    	jmsContext.createProducer().send((Destination) queue, message);
+    	System.out.println("Message Sent!");
+    }
+
     public String processOrder(Order order) {
     	
     	CreditCardPayment creditCardPayment = new CreditCardPayment();
@@ -80,6 +109,8 @@ public class OrderProcessingServiceBean {
     		entityManager.flush();
     		ServiceLocator.getInventoryService().updateInventory(inventory.getItems());
     	}
+    	
+    	notifyUser(paymentInfo.getEmailAddress());
  
     	return result;
     } 
