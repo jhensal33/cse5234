@@ -2,7 +2,7 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Queue;
+import javax.jms.Queue;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -45,7 +45,7 @@ public class EmailProcessingServlet extends HttpServlet {
             response) throws ServletException, IOException {
 		System.out.println("Receiving message...");
 		PrintWriter out = response.getWriter();
-		Message message = jmsContext.createConsumer((Destination) queue).receive(5000);
+		Message message = jmsContext.createConsumer(queue).receive(5000);
 		if(message != null && message instanceof TextMessage) {
 		       TextMessage textMessage = (TextMessage) message;
 		       try {

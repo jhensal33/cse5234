@@ -1,7 +1,7 @@
 package edu.osu.cse5234.business;
 
 import java.util.Date;
-import java.util.Queue;
+import javax.jms.Queue;
 
 import javax.annotation.Resource;
 import javax.ejb.LocalBean;
@@ -68,7 +68,7 @@ public class OrderProcessingServiceBean {
     	      	new Date();
 
     	System.out.println("Sending message: " + message);
-    	jmsContext.createProducer().send((Destination) queue, message);
+    	jmsContext.createProducer().send(queue, message);
     	System.out.println("Message Sent!");
     }
 
