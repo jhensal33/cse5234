@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class InventoryUpdater {
@@ -47,7 +48,23 @@ public class InventoryUpdater {
 		// TODO Auto-generated method stub
 		// This method returns a map of two integers. The first Integer is item ID, and 
                  // the second is cumulative requested quantity across all new orders
+		
 		Map<Integer, Integer> orderedLineItems = new HashMap<Integer, Integer>();
+		
+		Iterator<Integer> iterator = newOrderIds.iterator();		 
+        
+		while (iterator.hasNext()) {
+			int currentOrderId = iterator.next();
+	        ResultSet rset = conn.createStatement().executeQuery(
+	                "select ITEM_NUMBER, QUANTITY from CUSTOMER_ORDER_LINE_ITEM where CUSTOMER_ORDER_ID_FK = '" + currentOrderId + "'");
+	        
+	        while (rset.next()) {
+	        	int currentItem = rset.getInt("ITEM_NUMBER");
+	        	int cumulativeQuantity = orderedLineItems.get(currentItem);
+	        	cumulativeQuantity += rset.getInt("QUANTITY");
+	        	orderedLineItems.put(currentItem, cumulativeQuantity);
+	        }
+        }
 		
 		return orderedLineItems;
 	}
@@ -56,14 +73,30 @@ public class InventoryUpdater {
 
 	private static void udpateInventory(Map<Integer, Integer> orderedItems, 
                 Connection conn) throws SQLException {
-		// TODO Auto-generated method stub
+		
+		Iterator<Integer> iterator = newOrderIds.iterator();		 
+        
+		while (iterator.hasNext()) {
+			int currentOrderId = iterator.next();
+			
+			
+	        conn.createStatement().executeQuery("update ITEM set AVAILABLE_QUANTITY = AVAILABLE_QUANTITY - " + quantity + " where ITEM_NUMBER = '" + itemNumber + "'");
+	        
+		}
 
 	}
 
 	private static void udpateOrderStatus(Collection<Integer> newOrderIds, 
                 Connection conn) throws SQLException {
-		// TODO Auto-generated method stub
-
+		
+		Iterator<Integer> iterator = newOrderIds.iterator();		 
+        
+		while (iterator.hasNext()) {
+			int currentOrderId = iterator.next();
+			
+	        conn.createStatement().executeQuery("update CUSTOMER_ORDER set STATUS = 'Old' where ID = '" + currentOrderId + "'");
+	        
+		}
 	}
 
 	
