@@ -73,15 +73,11 @@ public class InventoryUpdater {
 
 	private static void udpateInventory(Map<Integer, Integer> orderedItems, 
                 Connection conn) throws SQLException {
-		
-		Iterator<Integer> iterator = newOrderIds.iterator();		 
-        
-		while (iterator.hasNext()) {
-			int currentOrderId = iterator.next();
+				 
+
+		for (Map.Entry<Integer,Integer> item : orderedItems.entrySet())   {
 			
-			
-	        conn.createStatement().executeQuery("update ITEM set AVAILABLE_QUANTITY = AVAILABLE_QUANTITY - " + quantity + " where ITEM_NUMBER = '" + itemNumber + "'");
-	        
+	        conn.createStatement().executeQuery("update ITEM set AVAILABLE_QUANTITY = AVAILABLE_QUANTITY - " + item.getValue() + " where ITEM_NUMBER = '" + item.getKey() + "'");
 		}
 
 	}
