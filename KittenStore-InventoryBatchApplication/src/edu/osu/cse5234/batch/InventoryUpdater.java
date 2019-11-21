@@ -19,7 +19,7 @@ public class InventoryUpdater {
 			Connection conn = createConnection();
 			Collection<Integer> newOrderIds = getNewOrders(conn);
 			Map<Integer, Integer> orderedItems = getOrderedLineItems(newOrderIds, conn);
-			udpateInventory(orderedItems, conn);
+			udpateInventory(orderedItems, conn);/
 			udpateOrderStatus(newOrderIds, conn);
 			conn.close();
 		} catch (Exception e) {
@@ -49,6 +49,7 @@ public class InventoryUpdater {
 		// This method returns a map of two integers. The first Integer is item ID, and 
                  // the second is cumulative requested quantity across all new orders
 		
+
 		Map<Integer, Integer> orderedLineItems = new HashMap<Integer, Integer>();
 		
 		Iterator<Integer> iterator = newOrderIds.iterator();		 
@@ -67,6 +68,7 @@ public class InventoryUpdater {
         }
 		
 		return orderedLineItems;
+
 	}
 	
 	
