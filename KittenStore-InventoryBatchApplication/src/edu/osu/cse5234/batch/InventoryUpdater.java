@@ -19,7 +19,7 @@ public class InventoryUpdater {
 			Connection conn = createConnection();
 			Collection<Integer> newOrderIds = getNewOrders(conn);
 			Map<Integer, Integer> orderedItems = getOrderedLineItems(newOrderIds, conn);
-			udpateInventory(orderedItems, conn);/
+			udpateInventory(orderedItems, conn);
 			udpateOrderStatus(newOrderIds, conn);
 			conn.close();
 		} catch (Exception e) {
