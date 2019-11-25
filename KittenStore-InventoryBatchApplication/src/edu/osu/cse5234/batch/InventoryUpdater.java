@@ -29,7 +29,7 @@ public class InventoryUpdater {
 
 	private static Connection createConnection() throws SQLException, ClassNotFoundException {
 		Class.forName("org.h2.Driver");
-		Connection conn = DriverManager.getConnection("jdbc:h2:~/test", "sa", "password");
+		Connection conn = DriverManager.getConnection("jdbc:h2:C:/workspaceCSE5234/h2db/FelineBeelineDB;AUTO_SERVER=TRUE", "sa", "password");
 		return conn;
 	}
 
@@ -43,16 +43,17 @@ public class InventoryUpdater {
 		return orderIds;
 	}
 
+	/**
+	 * @return This method returns a map of two integers. The first Integer is item ID, and the second is cumulative requested quantity across all new orders
+	 * @throws SQLException
+	 */
 	private static Map<Integer, Integer> getOrderedLineItems(Collection<Integer> newOrderIds,
                 Connection conn)  throws SQLException {
-		// TODO Auto-generated method stub
-		// This method returns a map of two integers. The first Integer is item ID, and 
-                 // the second is cumulative requested quantity across all new orders
 		
-
 		Map<Integer, Integer> orderedLineItems = new HashMap<Integer, Integer>();
-		
-		Iterator<Integer> iterator = newOrderIds.iterator();		 
+		Iterator<Integer> iterator = newOrderIds.iterator();	
+        int currentItem;
+        int orderedQuantity;
         
 		while (iterator.hasNext()) {
 			int currentOrderId = iterator.next();
@@ -60,28 +61,27 @@ public class InventoryUpdater {
 	                "select ITEM_NUMBER, QUANTITY from CUSTOMER_ORDER_LINE_ITEM where CUSTOMER_ORDER_ID_FK = '" + currentOrderId + "'");
 	        
 	        while (rset.next()) {
-	        	int currentItem = rset.getInt("ITEM_NUMBER");
-	        	int cumulativeQuantity = orderedLineItems.get(currentItem);
-	        	cumulativeQuantity += rset.getInt("QUANTITY");
-	        	orderedLineItems.put(currentItem, cumulativeQuantity);
+	        	currentItem = rset.getInt("ITEM_NUMBER");
+	        	if(orderedLineItems.containsKey(currentItem)) {
+	        		orderedQuantity = orderedLineItems.get(currentItem);
+	        		orderedLineItems.put(currentItem, orderedQuantity + rset.getInt("QUANTITY"));
+	        	}
+	        	else {
+		        	orderedLineItems.put(currentItem, rset.getInt("QUANTITY"));	        		
+	        	}
 	        }
         }
 		
 		return orderedLineItems;
-
 	}
 	
 	
-
 	private static void udpateInventory(Map<Integer, Integer> orderedItems, 
                 Connection conn) throws SQLException {
 				 
-
 		for (Map.Entry<Integer,Integer> item : orderedItems.entrySet())   {
-			
-	        conn.createStatement().executeQuery("update ITEM set AVAILABLE_QUANTITY = AVAILABLE_QUANTITY - " + item.getValue() + " where ITEM_NUMBER = '" + item.getKey() + "'");
+	        conn.createStatement().executeUpdate("update ITEM set AVAILABLE_QUANTITY = AVAILABLE_QUANTITY - " + item.getValue() + " where ITEM_NUMBER = '" + item.getKey() + "'");
 		}
-
 	}
 
 	private static void udpateOrderStatus(Collection<Integer> newOrderIds, 
@@ -89,13 +89,11 @@ public class InventoryUpdater {
 		
 		Iterator<Integer> iterator = newOrderIds.iterator();		 
         
+		int currentOrderId;
 		while (iterator.hasNext()) {
-			int currentOrderId = iterator.next();
-			
-	        conn.createStatement().executeQuery("update CUSTOMER_ORDER set STATUS = 'Old' where ID = '" + currentOrderId + "'");
-	        
+			currentOrderId = iterator.next();
+	        conn.createStatement().executeUpdate("update CUSTOMER_ORDER set STATUS = 'Processed' where ID = '" + currentOrderId + "'");	      
 		}
 	}
-
 	
 }
