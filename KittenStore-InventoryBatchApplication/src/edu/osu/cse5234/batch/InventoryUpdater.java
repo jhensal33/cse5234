@@ -25,6 +25,7 @@ public class InventoryUpdater {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println("Inventory Update Complete");
 	}
 
 	private static Connection createConnection() throws SQLException, ClassNotFoundException {
